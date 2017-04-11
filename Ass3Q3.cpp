@@ -8,7 +8,15 @@
 using namespace std;
 
 #define PI 3.14159265
-GLfloat global_posImage = 1.5;
+GLfloat global_posImage = 0.6;
+
+
+void handleKeypress(unsigned char key, int x, int y) {    //The current mouse coordinates                                                                                  
+        switch (key) {
+                case 'q': //Escape key                                                                                                                                       
+                  exit(0); //Exit the program                                                                                                                               
+        }
+}
 
 void ground(void)
 {
@@ -232,7 +240,6 @@ void house(void)
 
 }
 
-
 void drawSpaceship(void){
 	glColor3f(0.88,0.93,0.93);
 	glBegin(GL_POLYGON);	
@@ -290,7 +297,7 @@ void drawSpaceship(void){
 
 void drawFire(){
 	
-	glColor3f(1,1,1);
+	glColor3f(0.93,0.79,0);
 	glBegin(GL_POLYGON);	
 		glVertex2f(-0.6,0.1);
 		glVertex2f(-0.8,0.2);
@@ -307,8 +314,50 @@ void drawFire(){
 		glVertex2f(-0.6,-0.1);
 	glEnd();
 	
+	glColor3f(0.8,0.07,0);
+	glBegin(GL_POLYGON);	
+		glVertex2f(-0.6,0.05);
+		glVertex2f(-0.75,0.15);
+		glVertex2f(-0.7,0.08);
+		glVertex2f(-0.8,0.08);
+		glVertex2f(-0.7,0.03);
+		
+		glVertex2f(-0.84,0);
+		
+		glVertex2f(-0.7,-0.03);
+		glVertex2f(-0.8,-0.08);
+		glVertex2f(-0.7,-0.08);
+		glVertex2f(-0.75,-0.15);
+		glVertex2f(-0.6,-0.05);
+	glEnd();
 	
 	
+	
+}
+
+void printAsteroid(double offset_x)
+{
+	// Sets the body of the asteroid	
+	glColor3f(0.8,0.5,0.2);
+	glBegin(GL_POLYGON);
+		glVertex2f(0.45 + offset_x, 0);
+		glVertex2f(0.45 + offset_x, 0.1);
+		glVertex2f(0.5 + offset_x, 0.2);
+		glVertex2f(0.6 + offset_x, 0.3);
+		glVertex2f(0.6 + offset_x, 0.5);
+		glVertex2f(0.7 + offset_x, 0.6);
+		glVertex2f(0.8 + offset_x, 0.6);
+		glVertex2f(0.85 + offset_x, 0.4);
+		glVertex2f(0.9 + offset_x, 0.1);
+		glVertex2f(0.95 + offset_x, -0.1);
+		glVertex2f(0.9 + offset_x, -0.4);
+		glVertex2f(0.85 + offset_x, -0.55);
+		glVertex2f(0.75 + offset_x, -0.6);
+		glVertex2f(0.625 + offset_x, -0.5);
+		glVertex2f(0.55 + offset_x, -0.4);
+		glVertex2f(0.525 + offset_x, -0.2);
+		glVertex2f(0.475 + offset_x, -0.2);
+	glEnd();
 }
 
 void display(void)
@@ -319,26 +368,26 @@ void display(void)
 			
 	glLoadIdentity();			// Load the identity matrix to reset our drawing
 
-	drawCircle(1.0,1.0,0.0, global_posImage, 0.7, 0.2);	// (r,g,b,x, y,rad)
-	// Asteroid
+	//drawCircle(1.0,1.0,0.0, global_posImage, 0.7, 0.2);	// (r,g,b,x, y,rad)
+	printAsteroid(global_posImage);
 	// Spaceship
 	// fire
 	drawSpaceship();
 	drawFire();
 
-	printGrid();
+	//printGrid();
 	glFlush();
 	
-	/*
+	
 	// Animation of the asteroid
 	global_posImage = global_posImage - 0.001;
 	usleep(1);
-        if (global_posImage < -1.5)
+        if (global_posImage < -2.4)
         {
-                global_posImage = 1.5;
+                global_posImage = 0.6;
         }
+	
 	glutPostRedisplay();
-*/
 }
 
 
@@ -352,17 +401,10 @@ int main (int argc, char **argv)
 	glutInitWindowSize(800, 600);	// Set the width and the height of the window
 	glutInitWindowPosition(100, 100);	// Set the position of the window
 	
-	glutCreateWindow("Le chef-d'oeuvre, par Samuel Beaubien et titolepro");	// Create the window
+	glutCreateWindow("Le chef-d'oeuvre, par Tamarack et TonySpark");	// Create the window
 		
 	glutDisplayFunc(display);
-	
+	glutKeyboardFunc(handleKeypress);
 	glutMainLoop();	// Infinite loop so that window stays open
-
-
-	
-
-
-
-
 
 }
