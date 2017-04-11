@@ -4,11 +4,17 @@
 #include "GL/gl.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <png.h>
+#include <cstdio>
+#include "bmp.h"
+//#include "glut.h"
 
 using namespace std;
 
 #define PI 3.14159265
 GLfloat global_posImage = 0.6;
+
+GLuint	texture[3];
 
 
 void handleKeypress(unsigned char key, int x, int y) {    //The current mouse coordinates                                                                                  
@@ -17,6 +23,50 @@ void handleKeypress(unsigned char key, int x, int y) {    //The current mouse co
                   exit(0); //Exit the program                                                                                                                               
         }
 }
+
+AUX_RGBImageRec *LoadBMP(char *Filename)				// Loads A Bitmap Image
+{
+	FILE *File=NULL;									// File Handle
+
+	if (!Filename)										// Make Sure A Filename Was Given
+	{
+		return NULL;									// If Not Return NULL
+	}
+
+	File=fopen(Filename,"r");							// Check To See If The File Exists
+
+	if (File)											// Does The File Exist?
+	{
+		fclose(File);									// Close The Handle
+		return auxDIBImageLoad(Filename);				// Load The Bitmap And Return A Pointer
+	}
+
+	return NULL;										// If Load Failed Return NULL
+}
+
+bool LoadGLTextures()									// Load Bitmaps And Convert To Textures
+{
+	AUX_RGBImageRec *TextureImage[1];					// Create Storage Space For The Texture
+
+	memset(TextureImage,0,sizeof(void *)*1);           	// Set The Pointer To NULL
+
+	// Load The Bitmap, Check For Errors, If Bitmap's Not Found Quit
+	if (!(TextureImage[0]=LoadBMP("bg.bmp")))
+		return false;
+
+	glGenTextures(1, &texture[0]);						// Create One Textures
+
+	// Create MipMapped Texture
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, TextureImage[0]->sizeX, TextureImage[0]->sizeY, GL_RGB, GL_UNSIGNED_BYTE, TextureImage[0]->data);
+
+	if (TextureImage[0])								// If Texture Exists	
+		delete TextureImage[0];							// destroy it
+	return true;										// Return The Status
+}
+
 
 void ground(void)
 {
@@ -360,6 +410,18 @@ void printAsteroid(double offset_x)
 	glEnd();
 }
 
+void printBackground(){
+	glBindTexture(GL_TEXTURE_2D, texture[0]);			// use our texture
+	glBegin(GL_QUADS);
+		glVertex2f(-1,-1);
+		glVertex2f(1,-1);
+		glVertex2f(1,1);
+		glVertex2f(-1,1);
+	glEnd();
+	
+	
+}
+
 void display(void)
 {	
 	glClearColor(0.0, 0.0, 0.0, 1.0);	// Set the background color	
@@ -393,11 +455,12 @@ void display(void)
 
 int main (int argc, char **argv) 
 {	
-
+	
 	
 	glutInit(&argc, argv);	//Initialize glut
 	glutInitDisplayMode(GLUT_SINGLE);	// Sets up basic display buffer
-
+	if (!LoadGLTextures())								// Jump To Texture Loading Routine
+		return false;	
 	glutInitWindowSize(800, 600);	// Set the width and the height of the window
 	glutInitWindowPosition(100, 100);	// Set the position of the window
 	
