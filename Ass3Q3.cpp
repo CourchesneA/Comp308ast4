@@ -5,6 +5,17 @@
 
 #define PI 3.14159265
 
+
+void handleKeypress(unsigned char key, int x, int y) {
+
+	switch (key) {
+
+		std::cout << "Key pressed: "+key << std::endl;
+
+	}
+
+}
+
 void ground(void)
 {
 	glColor3f(0.0, 1.0, 0.0);
@@ -210,6 +221,31 @@ void house(void)
 
 }
 
+void drawSpaceship(void){
+	glColor3f(0.88,0.93,0.93);
+	glBegin(GL_POLYGON);	
+		glVertex2f(0.15,0);
+		//glVertex2f(0.1,0.04);
+		glVertex2f(0.05,0.07);
+		//glVertex2f(0,0.17);
+		glVertex2f(-0.05,0.13);
+		//glVertex2f(-0.1,0.27);
+		glVertex2f(-0.15,0.18);
+		//glVertex2f(-0.2,0.35);
+		glVertex2f(-0.25,0.22);
+		//glVertex2f(-0.3,0.4);
+		glVertex2f(-0.35,0.23);
+
+		glVertex2f(0,0);
+
+	glEnd();
+	
+	
+	
+	
+}
+
+
 void display(void)
 {	
 	glClearColor(0.0, 0.0, 0.0, 1.0);	// Set the background color	
@@ -225,7 +261,7 @@ void display(void)
 	//printGrid();*/
 	
 	//drawAsteroid();
-	//drawSpaceship();
+	drawSpaceship();
 	//drawFire();
 	
 	
@@ -245,7 +281,7 @@ int main (int argc, char **argv)
 	
 	glutCreateWindow("Le chef-d'oeuvre, par Samuel Beaubien");	// Create the window
 	glutDisplayFunc(display);
-	
+	glutKeyboardFunc(handleKeypress);
 
 	
 	glutMainLoop();	// Infinite loop so that window stays open
