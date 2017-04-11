@@ -212,17 +212,23 @@ void house(void)
 
 void display(void)
 {	
-	glClearColor(0.0, 1.0, 1.0, 1.0);	// Set the background color	
+	glClearColor(0.0, 0.0, 0.0, 1.0);	// Set the background color	
 	glClear (GL_COLOR_BUFFER_BIT);		// Clear the buffer color
 	
 		
 	glLoadIdentity();			// Load the identity matrix to rest our drawing
-	ground();
+	/*ground();
 	drawCircle(1.0,1.0,0.0, 0.7, 0.7, 0.2);	
 	sunRays();
 	stickFigure();		// Draw the figure
 	house();			// Draw the house
-	//printGrid();
+	//printGrid();*/
+	
+	//drawAsteroid();
+	//drawSpaceship();
+	//drawFire();
+	
+	
 	glFlush();
 }
 
@@ -230,6 +236,7 @@ void display(void)
 int main (int argc, char **argv) 
 {	
 
+	
 	glutInit(&argc, argv);	//Initialize glut
 	glutInitDisplayMode(GLUT_SINGLE);	// Sets up basic display buffer
 
