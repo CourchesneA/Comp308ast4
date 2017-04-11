@@ -1,2 +1,2 @@
-spaceship:
-	g++ -o spaceship Ass3Q3.cpp -lGL -lGLU -lglut
+spaceship: Ass3Q3.cpp
+	g++ -Wall -o spaceship Ass3Q3.cpp -lCgGL -lCg -lGL -lGLU -lglut

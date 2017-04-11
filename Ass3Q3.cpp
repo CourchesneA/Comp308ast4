@@ -214,20 +214,20 @@ void house(void)
 
 void display(void)
 {	
-		glClearColor(0.0, 1.0, 1.0, 1.0);	// Set the background color	
-		glClear (GL_COLOR_BUFFER_BIT);		// Clear the buffer color
+	glClearColor(0.0, 1.0, 1.0, 1.0);	// Set the background color	
+	glClear (GL_COLOR_BUFFER_BIT);		// Clear the buffer color
 		
 			
-		glLoadIdentity();			// Load the identity matrix to reset our drawing
-		ground();
+	glLoadIdentity();			// Load the identity matrix to reset our drawing
+	ground();
 
-		drawCircle(1.0,1.0,0.0, global_posImage, 0.7, 0.2);	// (r,g,b,x, y,rad)
+	drawCircle(1.0,1.0,0.0, global_posImage, 0.7, 0.2);	// (r,g,b,x, y,rad)
 
-		sunRays();
-		stickFigure();		// Draw the figure
-		house();			// Draw the house
-		printGrid();
-		glFlush();
+	sunRays();
+	stickFigure();		// Draw the figure
+	house();			// Draw the house
+	printGrid();
+	glFlush();
 	
 	
 	global_posImage = global_posImage - 0.001;
@@ -246,6 +246,7 @@ void display(void)
 int main (int argc, char **argv) 
 {	
 
+	
 	glutInit(&argc, argv);	//Initialize glut
 	glutInitDisplayMode(GLUT_SINGLE);	// Sets up basic display buffer
 
