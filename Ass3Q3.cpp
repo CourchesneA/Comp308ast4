@@ -24,6 +24,21 @@ void ground(void)
 
 }
 
+void drawCircle2(double posX, double posY, double radius)
+{
+	
+	glBegin(GL_TRIANGLE_FAN);
+	
+		for (int counterDegree = 0; counterDegree < 360; counterDegree++)
+		{
+			double angle = 2*PI * counterDegree/360;
+			double x = posX + (((cos(angle) * radius)/800)*600);
+			double y = posY + sin(angle) * radius;
+			glVertex2f(x,y);
+		}
+	glEnd();
+}
+
 /*
 Draws circle
 
@@ -98,6 +113,7 @@ void printGrid(void)
 
 }
 
+
 void sunRays(void)
 {
 	
@@ -167,6 +183,8 @@ void drawLine(double x1, double y1, double x2, double y2)
 
 }
 
+/*
+
 void stickFigure(void)
 {
 	drawCircle(0,0,0,0.2,0,0.1);         // Head of the figure
@@ -184,6 +202,8 @@ void stickFigure(void)
 	drawLine(0.14, -0.22, 0.06, -0.25);	
 
 }
+
+*/
 
 void drawRectangle(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double R, double G, double B)
 {
@@ -212,6 +232,85 @@ void house(void)
 
 }
 
+
+void drawSpaceship(void){
+	glColor3f(0.88,0.93,0.93);
+	glBegin(GL_POLYGON);	
+		glVertex2f(0.15,0);
+		glVertex2f(0.05,0.07);
+		glVertex2f(-0.05,0.13);
+		glVertex2f(-0.15,0.18);
+		glVertex2f(-0.25,0.22);
+		glVertex2f(-0.35,0.23);
+		glVertex2f(-0.45,0.22);
+		glVertex2f(-0.55,0.21);
+		
+		glVertex2f(-0.55,-0.21);
+		glVertex2f(-0.45,-0.22);
+		glVertex2f(-0.35,-0.23);
+		glVertex2f(-0.25,-0.22);
+		glVertex2f(-0.15,-0.18);
+		glVertex2f(-0.05,-0.13);
+		glVertex2f(0.05,-0.07);
+	glEnd();
+	
+	glColor3f(0.55,0.55,0.55);
+	glBegin(GL_POLYGON);	
+		
+		glVertex2f(-0.35,0.23);
+		glVertex2f(-0.55,0.21);
+		glVertex2f(-0.65,0.3);
+		glVertex2f(-0.48,0.3);
+		
+	glEnd();
+	glBegin(GL_POLYGON);
+		glVertex2f(-0.35,-0.23);
+		glVertex2f(-0.55,-0.21);
+		glVertex2f(-0.65,-0.3);
+		glVertex2f(-0.48,-0.3);
+	glEnd();
+	
+	
+	glColor3f(0.55,0.55,0.55);
+	glBegin(GL_POLYGON);
+		glVertex2f(-0.55,0.12);
+		glVertex2f(-0.6,0.12);
+		glVertex2f(-0.6,-0.12);
+		glVertex2f(-0.55,-0.12);
+	glEnd();
+	
+	//glColor3d(0.1,0.1,0.1);
+	drawCircle2(-0.3,0,0.1);
+	glColor3d(0.56,0.90,0.93);
+	drawCircle2(-0.3,0,0.07);
+	glColor3d(1,1,1);
+	drawCircle2(-0.28,0.02,0.02);
+	
+}
+
+void drawFire(){
+	
+	glColor3f(1,1,1);
+	glBegin(GL_POLYGON);	
+		glVertex2f(-0.6,0.1);
+		glVertex2f(-0.8,0.2);
+		glVertex2f(-0.75,0.1);
+		glVertex2f(-0.9,0.15);
+		glVertex2f(-0.8,0.05);
+		
+		glVertex2f(-0.95,0);
+		
+		glVertex2f(-0.8,-0.05);
+		glVertex2f(-0.9,-0.15);
+		glVertex2f(-0.75,-0.1);
+		glVertex2f(-0.8,-0.2);
+		glVertex2f(-0.6,-0.1);
+	glEnd();
+	
+	
+	
+}
+
 void display(void)
 {	
 	glClearColor(0.0, 0.0, 0.0, 1.0);	// Set the background color	
@@ -224,25 +323,22 @@ void display(void)
 	// Asteroid
 	// Spaceship
 	// fire
+	drawSpaceship();
+	drawFire();
 
-	sunRays();
-	stickFigure();		// Draw the figure
-	house();			// Draw the house
 	printGrid();
 	glFlush();
 	
-	
+	/*
 	// Animation of the asteroid
 	global_posImage = global_posImage - 0.001;
-
 	usleep(1);
         if (global_posImage < -1.5)
         {
                 global_posImage = 1.5;
         }
-	
 	glutPostRedisplay();
-
+*/
 }
 
 
