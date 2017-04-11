@@ -2,19 +2,13 @@
 #include <iostream>
 #include "GL/freeglut.h"
 #include "GL/gl.h"
+#include <stdlib.h>
+#include <unistd.h>
+
+using namespace std;
 
 #define PI 3.14159265
-
-
-void handleKeypress(unsigned char key, int x, int y) {
-
-	switch (key) {
-
-		std::cout << "Key pressed: "+key << std::endl;
-
-	}
-
-}
+GLfloat global_posImage = 1.5;
 
 void ground(void)
 {
@@ -261,10 +255,19 @@ void display(void)
 	//printGrid();*/
 	
 	//drawAsteroid();
-	drawSpaceship();
+	//drawSpaceship();
 	//drawFire();
 	
+	global_posImage = global_posImage - 0.001;
+
+	usleep(1);
+        if (global_posImage < -1.5)
+        {
+                global_posImage = 1.5;
+        }
 	
+	glutPostRedisplay();
+
 	glFlush();
 }
 
@@ -279,7 +282,8 @@ int main (int argc, char **argv)
 	glutInitWindowSize(800, 600);	// Set the width and the height of the window
 	glutInitWindowPosition(100, 100);	// Set the position of the window
 	
-	glutCreateWindow("Le chef-d'oeuvre, par Samuel Beaubien");	// Create the window
+	glutCreateWindow("Le chef-d'oeuvre, par Samuel Beaubien et titolepro");	// Create the window
+		
 	glutDisplayFunc(display);
 	glutKeyboardFunc(handleKeypress);
 
