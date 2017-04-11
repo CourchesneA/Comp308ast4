@@ -78,7 +78,7 @@ void printGrid(void)
 	// x lines 
 	for (double counter = -1; counter < 10; counter = counter + 0.1)
 	{
-		glColor3f(0, 0, 0); 
+		glColor3f(1, 1, 1); 
 		glBegin(GL_LINE_STRIP);
 			 glVertex2f(-1.0,counter);
 			 glVertex2f(1.0, counter);
@@ -88,7 +88,7 @@ void printGrid(void)
 	// y lines 
         for (double counter = -1; counter < 1.0; counter = counter + 0.1)
         {
-                glColor3f(0, 0, 0);
+                glColor3f(1, 1, 1);
                 glBegin(GL_LINE_STRIP);
                          glVertex2f(counter,-1.0);
                          glVertex2f(counter, 1.0);
@@ -97,6 +97,7 @@ void printGrid(void)
 	
 
 }
+
 
 void sunRays(void)
 {
@@ -167,6 +168,8 @@ void drawLine(double x1, double y1, double x2, double y2)
 
 }
 
+/*
+
 void stickFigure(void)
 {
 	drawCircle(0,0,0,0.2,0,0.1);         // Head of the figure
@@ -184,6 +187,8 @@ void stickFigure(void)
 	drawLine(0.14, -0.22, 0.06, -0.25);	
 
 }
+
+*/
 
 void drawRectangle(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double R, double G, double B)
 {
@@ -214,30 +219,29 @@ void house(void)
 
 void display(void)
 {	
-	glClearColor(0.0, 1.0, 1.0, 1.0);	// Set the background color	
+	glClearColor(0.0, 0.0, 0.0, 1.0);	// Set the background color	
 	glClear (GL_COLOR_BUFFER_BIT);		// Clear the buffer color
 		
 			
 	glLoadIdentity();			// Load the identity matrix to reset our drawing
-	ground();
 
 	drawCircle(1.0,1.0,0.0, global_posImage, 0.7, 0.2);	// (r,g,b,x, y,rad)
+	// Asteroid
+	// Spaceship
+	// fire
 
-	sunRays();
-	stickFigure();		// Draw the figure
-	house();			// Draw the house
+
 	printGrid();
 	glFlush();
 	
 	
+	// Animation of the asteroid
 	global_posImage = global_posImage - 0.001;
-
 	usleep(1);
         if (global_posImage < -1.5)
         {
                 global_posImage = 1.5;
         }
-	
 	glutPostRedisplay();
 
 }
