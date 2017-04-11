@@ -22,8 +22,8 @@ void ground(void)
 
         glEnd();
 
-
 }
+
 /*
 Draws circle
 
@@ -78,19 +78,17 @@ void printGrid(void)
 	// x lines 
 	for (double counter = -1; counter < 10; counter = counter + 0.1)
 	{
-		glColor3f(0, 0, 0); 
+		glColor3f(1, 1, 1); 
 		glBegin(GL_LINE_STRIP);
 			 glVertex2f(-1.0,counter);
 			 glVertex2f(1.0, counter);
 		glEnd();
 	}
-	
-	std::cout << "yolo";	
 
 	// y lines 
         for (double counter = -1; counter < 1.0; counter = counter + 0.1)
         {
-                glColor3f(0, 0, 0);
+                glColor3f(1, 1, 1);
                 glBegin(GL_LINE_STRIP);
                          glVertex2f(counter,-1.0);
                          glVertex2f(counter, 1.0);
@@ -144,7 +142,6 @@ void sunRays(void)
                 glVertex2f(0.5,0.4);
                 glVertex2f(0.7, 0.7);
         glEnd();
-
 
 }
 
@@ -215,49 +212,27 @@ void house(void)
 
 }
 
-void drawSpaceship(void){
-	glColor3f(0.88,0.93,0.93);
-	glBegin(GL_POLYGON);	
-		glVertex2f(0.15,0);
-		//glVertex2f(0.1,0.04);
-		glVertex2f(0.05,0.07);
-		//glVertex2f(0,0.17);
-		glVertex2f(-0.05,0.13);
-		//glVertex2f(-0.1,0.27);
-		glVertex2f(-0.15,0.18);
-		//glVertex2f(-0.2,0.35);
-		glVertex2f(-0.25,0.22);
-		//glVertex2f(-0.3,0.4);
-		glVertex2f(-0.35,0.23);
-
-		glVertex2f(0,0);
-
-	glEnd();
-	
-	
-	
-	
-}
-
-
 void display(void)
 {	
 	glClearColor(0.0, 0.0, 0.0, 1.0);	// Set the background color	
 	glClear (GL_COLOR_BUFFER_BIT);		// Clear the buffer color
-	
 		
-	glLoadIdentity();			// Load the identity matrix to rest our drawing
-	/*ground();
-	drawCircle(1.0,1.0,0.0, 0.7, 0.7, 0.2);	
+			
+	glLoadIdentity();			// Load the identity matrix to reset our drawing
+
+	drawCircle(1.0,1.0,0.0, global_posImage, 0.7, 0.2);	// (r,g,b,x, y,rad)
+	// Asteroid
+	// Spaceship
+	// fire
+
 	sunRays();
 	stickFigure();		// Draw the figure
 	house();			// Draw the house
-	//printGrid();*/
+	printGrid();
+	glFlush();
 	
-	//drawAsteroid();
-	//drawSpaceship();
-	//drawFire();
 	
+	// Animation of the asteroid
 	global_posImage = global_posImage - 0.001;
 
 	usleep(1);
@@ -268,7 +243,6 @@ void display(void)
 	
 	glutPostRedisplay();
 
-	glFlush();
 }
 
 
@@ -285,8 +259,6 @@ int main (int argc, char **argv)
 	glutCreateWindow("Le chef-d'oeuvre, par Samuel Beaubien et titolepro");	// Create the window
 		
 	glutDisplayFunc(display);
-	glutKeyboardFunc(handleKeypress);
-
 	
 	glutMainLoop();	// Infinite loop so that window stays open
 
