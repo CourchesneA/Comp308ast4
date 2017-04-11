@@ -8,7 +8,7 @@
 using namespace std;
 
 #define PI 3.14159265
-GLfloat global_posImage = 1.5;
+GLfloat global_posImage = 0.5;
 
 void ground(void)
 {
@@ -217,6 +217,31 @@ void house(void)
 
 }
 
+void printAsteroid(double offset_x)
+{
+	// Sets the body of the asteroid	
+	glColor3f(0,0,0);
+	glBegin(GL_POLYGON);
+		glVertex2f(0.45 + offset_x, 0);
+		glVertex2f(0.45 + offset_x, 0.1);
+		glVertex2f(0.5 + offset_x, 0.2);
+		glVertex2f(0.6 + offset_x, 0.3);
+		glVertex2f(0.6 + offset_x, 0.5);
+		glVertex2f(0.7 + offset_x, 0.6);
+		glVertex2f(0.8 + offset_x, 0.6);
+		glVertex2f(0.85 + offset_x, 0.4);
+		glVertex2f(0.9 + offset_x, 0.1);
+		glVertex2f(0.95 + offset_x, -0.1);
+		glVertex2f(0.9 + offset_x, -0.4);
+		glVertex2f(0.85 + offset_x, -0.55);
+		glVertex2f(0.75 + offset_x, -0.6);
+		glVertex2f(0.625 + offset_x, -0.5);
+		glVertex2f(0.55 + offset_x, -0.4);
+		glVertex2f(0.525 + offset_x, -0.2);
+		glVertex2f(0.475 + offset_x, -0.2);
+	glEnd();
+}
+
 void display(void)
 {	
 	glClearColor(0.0, 0.0, 0.0, 1.0);	// Set the background color	
@@ -225,8 +250,8 @@ void display(void)
 			
 	glLoadIdentity();			// Load the identity matrix to reset our drawing
 
-	drawCircle(1.0,1.0,0.0, global_posImage, 0.7, 0.2);	// (r,g,b,x, y,rad)
-	// Asteroid
+	//drawCircle(1.0,1.0,0.0, global_posImage, 0.7, 0.2);	// (r,g,b,x, y,rad)
+	printAsteroid(global_posImage);
 	// Spaceship
 	// fire
 
@@ -238,9 +263,9 @@ void display(void)
 	// Animation of the asteroid
 	global_posImage = global_posImage - 0.001;
 	usleep(1);
-        if (global_posImage < -1.5)
+        if (global_posImage < -2.4)
         {
-                global_posImage = 1.5;
+                global_posImage = 0.5;
         }
 	glutPostRedisplay();
 
