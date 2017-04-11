@@ -2,8 +2,13 @@
 #include <iostream>
 #include "GL/freeglut.h"
 #include "GL/gl.h"
+#include <stdlib.h>
+#include <unistd.h>
+
+using namespace std;
 
 #define PI 3.14159265
+GLfloat global_posImage = 1.5;
 
 void ground(void)
 {
@@ -17,8 +22,8 @@ void ground(void)
 
         glEnd();
 
-
 }
+
 /*
 Draws circle
 
@@ -79,8 +84,6 @@ void printGrid(void)
 			 glVertex2f(1.0, counter);
 		glEnd();
 	}
-	
-	std::cout << "yolo";	
 
 	// y lines 
         for (double counter = -1; counter < 1.0; counter = counter + 0.1)
@@ -139,7 +142,6 @@ void sunRays(void)
                 glVertex2f(0.5,0.4);
                 glVertex2f(0.7, 0.7);
         glEnd();
-
 
 }
 
@@ -212,18 +214,32 @@ void house(void)
 
 void display(void)
 {	
-	glClearColor(0.0, 1.0, 1.0, 1.0);	// Set the background color	
-	glClear (GL_COLOR_BUFFER_BIT);		// Clear the buffer color
-	
+		glClearColor(0.0, 1.0, 1.0, 1.0);	// Set the background color	
+		glClear (GL_COLOR_BUFFER_BIT);		// Clear the buffer color
 		
-	glLoadIdentity();			// Load the identity matrix to rest our drawing
-	ground();
-	drawCircle(1.0,1.0,0.0, 0.7, 0.7, 0.2);	
-	sunRays();
-	stickFigure();		// Draw the figure
-	house();			// Draw the house
-	//printGrid();
-	glFlush();
+			
+		glLoadIdentity();			// Load the identity matrix to reset our drawing
+		ground();
+
+		drawCircle(1.0,1.0,0.0, global_posImage, 0.7, 0.2);	// (r,g,b,x, y,rad)
+
+		sunRays();
+		stickFigure();		// Draw the figure
+		house();			// Draw the house
+		printGrid();
+		glFlush();
+	
+	
+	global_posImage = global_posImage - 0.001;
+
+	usleep(1);
+        if (global_posImage < -1.5)
+        {
+                global_posImage = 1.5;
+        }
+	
+	glutPostRedisplay();
+
 }
 
 
@@ -236,10 +252,9 @@ int main (int argc, char **argv)
 	glutInitWindowSize(800, 600);	// Set the width and the height of the window
 	glutInitWindowPosition(100, 100);	// Set the position of the window
 	
-	glutCreateWindow("Le chef-d'oeuvre, par Samuel Beaubien");	// Create the window
+	glutCreateWindow("Le chef-d'oeuvre, par Samuel Beaubien et titolepro");	// Create the window
+		
 	glutDisplayFunc(display);
-	
-
 	
 	glutMainLoop();	// Infinite loop so that window stays open
 
